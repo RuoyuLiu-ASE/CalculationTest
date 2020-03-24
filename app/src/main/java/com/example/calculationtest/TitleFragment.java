@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -29,7 +30,7 @@ public class TitleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MyViewModel myViewModel;
-        ViewModelProvider viewModelProvider = new ViewModelProvider(this);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity(),new SavedStateViewModelFactory(requireActivity().getApplication(),this));
         myViewModel = viewModelProvider.get(MyViewModel.class);
 
         // 用 binding 来实现对 fragment_title 这个页面里的组件的控制

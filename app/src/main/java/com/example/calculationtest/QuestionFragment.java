@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,7 +31,10 @@ public class QuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final MyViewModel myViewModel;  //ViewModel 用来管理数据
-        myViewModel = new ViewModelProvider(this).get(MyViewModel.class); // myViewModel is the same one with other ViewModel which is created in other files. Because these fragments belong to the same activity.
+
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity(),new SavedStateViewModelFactory(requireActivity().getApplication(),this));
+        myViewModel = viewModelProvider.get(MyViewModel.class);
+        //myViewModel = new ViewModelProvider(getActivity()).get(MyViewModel.class); // myViewModel is the same one with other ViewModel which is created in other files. Because these fragments belong to the same activity.
         myViewModel.generator(); // 开始出题，和数据相关的，所以是用ViewModel来管理的
 
         final FragmentQuestionBinding binding; //DataBinding 用来控制对应的 layout 页面上的组件显示
