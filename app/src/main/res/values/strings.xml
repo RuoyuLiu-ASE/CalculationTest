@@ -30,4 +30,5 @@
     <string name="loss_score_mes">You score: %d</string>
     <string name="win_score_mes">You score: %d</string>
     <string name="button_back_to_title">Back</string>
+    <string name="answer_correct_messaage">Correct! Go on</string>
 </resources>
