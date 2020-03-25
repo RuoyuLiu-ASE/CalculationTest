@@ -40,6 +40,10 @@ public class TitleFragment extends Fragment {
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /****************************************************************/
+                //先把当前分数清零
+                //binding
+                /****************************************************************/
                 NavController controller = Navigation.findNavController(v); // 生成控制 navigation 的对象
                 controller.navigate(R.id.action_titleFragment_to_questionFragment);
             }

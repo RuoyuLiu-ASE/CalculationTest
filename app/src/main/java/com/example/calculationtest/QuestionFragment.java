@@ -119,6 +119,10 @@ public class QuestionFragment extends Fragment {
                     } else {
                         controller.navigate(R.id.action_questionFragment_to_loseFragment);
                     }
+                    /****************************************************************/
+                    //当答错之后，要把当前分数清零
+                    myViewModel.setCurrentScore(0);
+                    /****************************************************************/
                 }
             }
         });

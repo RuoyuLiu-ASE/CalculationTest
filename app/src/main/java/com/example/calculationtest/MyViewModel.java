@@ -85,12 +85,12 @@ public class MyViewModel extends AndroidViewModel {
             getOperator().setValue("-");
             if (x > y) { // x is bigger
                 getAnswer().setValue(x - y);
-                getRightNumber().setValue(x);
-                getLeftNumber().setValue(y);
-            }else {
-                getAnswer().setValue(y - x);
                 getRightNumber().setValue(y);
                 getLeftNumber().setValue(x);
+            }else {
+                getAnswer().setValue(y - x);
+                getRightNumber().setValue(x);
+                getLeftNumber().setValue(y);
             }
         }
     }
@@ -110,5 +110,10 @@ public class MyViewModel extends AndroidViewModel {
             win_flag = true;
         }
         generator(); // After record the score, generator the next task
+    }
+
+    //Set the current score to 0
+    public void setCurrentScore(int currentScore){
+        getCurrentScore().setValue(currentScore);
     }
 }
