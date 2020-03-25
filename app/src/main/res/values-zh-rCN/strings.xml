@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">计算测试</string>
     <string name="title_button">进入</string>
-    <string name="high_score_message">最高分</string>
+    <string name="high_score_message">最高分： %d</string>
     <string name="buttonSubmit">确定</string>
     <string name="current_score">得分： %d</string>
     <string name="input_indicator">你的答案</string>

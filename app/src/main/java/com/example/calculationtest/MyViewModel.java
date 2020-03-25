@@ -12,7 +12,7 @@ import androidx.lifecycle.SavedStateHandle;
 import java.util.Random;
 
 public class MyViewModel extends AndroidViewModel {
-    SavedStateHandle handle;
+    private SavedStateHandle handle;
 
     private static String KEY_HIGH_SCORE = "key_high_score";
     private static String KEY_LEFT_NUMBER = "key_left_number";
@@ -26,17 +26,17 @@ public class MyViewModel extends AndroidViewModel {
 
     public MyViewModel(@NonNull Application application, SavedStateHandle handle) {
         super(application);
-
+        this.handle = handle;
         if (!handle.contains(KEY_HIGH_SCORE)) {
-            SharedPreferences shp = getApplication().getSharedPreferences(SAVE_SHP_DATA_NAME, Context.MODE_PRIVATE);
-            handle.set(KEY_HIGH_SCORE,0);
+            //SharedPreferences shp = getApplication().getSharedPreferences(SAVE_SHP_DATA_NAME, Context.MODE_PRIVATE);
+            //handle.set(KEY_HIGH_SCORE,shp.getInt(KEY_HIGH_SCORE,0));
+            load();  //这种做法比较符合我的认知。 一开始进来，要装载shp里所保存的值
             handle.set(KEY_LEFT_NUMBER,0);
             handle.set(KEY_RIGHT_NUMBER,0);
             handle.set(KEY_OPERATOR, "+");
             handle.set(KEY_ANSWER, 0);
             handle.set(KEY_CURRENT_SCORE,0);
         }
-        this.handle = handle;
     }
 
     public MutableLiveData<Integer> getLeftNumber() {
@@ -100,6 +100,12 @@ public class MyViewModel extends AndroidViewModel {
         SharedPreferences.Editor editor = shp.edit(); // make editor to store data
         editor.putInt(KEY_HIGH_SCORE,getHighScore().getValue()); // store the highest score
         editor.apply();
+    }
+
+    public void load() {
+        SharedPreferences shp = getApplication().getSharedPreferences(SAVE_SHP_DATA_NAME,Context.MODE_PRIVATE);
+        int x = shp.getInt(KEY_HIGH_SCORE,0);
+        handle.set(KEY_HIGH_SCORE,x);
     }
 
     //If the answer is right

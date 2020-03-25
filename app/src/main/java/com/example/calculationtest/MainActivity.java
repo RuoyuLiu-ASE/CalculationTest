@@ -14,7 +14,8 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     NavController navController;
-    MyViewModel myViewModel;
+    // 这是我的做法
+    //MyViewModel myViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this,R.id.fragment);
         NavigationUI.setupActionBarWithNavController(this,navController);
 
-        myViewModel = new ViewModelProvider(this,new SavedStateViewModelFactory(getApplication(),this)).get(MyViewModel.class);
+        /****************************************************************/
+        // 这是我的做法
+       // myViewModel = new ViewModelProvider(this,new SavedStateViewModelFactory(getApplication(),this)).get(MyViewModel.class);
     }
 
     public boolean onSupportNavigateUp() {
@@ -36,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     navController.navigateUp(); //返回上一个 fragment
                     /****************************************************************/
-                    myViewModel.setCurrentScore(0);  //按下确定键也得将分数清零
+                    // 这是我的做法
+                    //myViewModel.setCurrentScore(0);  //按下确定键也得将分数清零
                     /****************************************************************/
                 }
             });
@@ -48,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
             });
             AlertDialog dialog = builder.create();
             dialog.show(); // 先创建，在显示对话框。 前面一大段的代码是设置对话框的显示内容以及确定和取消键的对应动作
-        }else { // 当在其他页面点击 ActionBar 时， 直接返回最开始的界面。不需要显示对话框
+        } else if (navController.getCurrentDestination().getId() == R.id.titleFragment) { //最开始的界面时，按下返回标志时就退出App
+            finish();
+        } else { // 当在其他页面点击 ActionBar 时， 直接返回最开始的界面。不需要显示对话框
             navController.navigate(R.id.titleFragment); // 参数就是目的地fragment
         }
 

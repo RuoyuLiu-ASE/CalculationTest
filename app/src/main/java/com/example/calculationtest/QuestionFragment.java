@@ -36,6 +36,7 @@ public class QuestionFragment extends Fragment {
         myViewModel = viewModelProvider.get(MyViewModel.class);
         //myViewModel = new ViewModelProvider(getActivity()).get(MyViewModel.class); // myViewModel is the same one with other ViewModel which is created in other files. Because these fragments belong to the same activity.
         myViewModel.generator(); // 开始出题，和数据相关的，所以是用ViewModel来管理的
+        myViewModel.setCurrentScore(0); // 这是作者的做法！
 
         final FragmentQuestionBinding binding; //DataBinding 用来控制对应的 layout 页面上的组件显示
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_question,container,false);
@@ -105,6 +106,9 @@ public class QuestionFragment extends Fragment {
         binding.SubmitKey.setOnClickListener(new View.OnClickListener() {// 提交键的Listener，处理该事件的方法是不同的
             @Override
             public void onClick(View v) {
+                if (builder_input_indicator.length() == 0) {
+                    builder_input_indicator.append(-1);
+                }
                 if (Integer.valueOf(builder_input_indicator.toString()) == myViewModel.getAnswer().getValue()) {
                     // 当输入的数字之和等于 answer 的Value时
                     myViewModel.answerCorrect();
@@ -120,8 +124,8 @@ public class QuestionFragment extends Fragment {
                         controller.navigate(R.id.action_questionFragment_to_loseFragment);
                     }
                     /****************************************************************/
-                    //当答错之后，要把当前分数清零
-                    myViewModel.setCurrentScore(0);
+                    //当答错之后，要把当前分数清零 。 这是我的做法
+                    //myViewModel.setCurrentScore(0);
                     /****************************************************************/
                 }
             }
